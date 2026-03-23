@@ -3,154 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeReview AI — Профессиональная автоматизация отзывов WB/Ozon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>SafeReview AI — Полный автопилот отзывов WB/Ozon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05070a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
-            --text-main: #ffffff;
+            --bg: #020408;
+            --card-bg: #0a0c10;
+            --primary: #4f46e5;
+            --text: #f8fafc;
             --text-dim: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
+            --border: #1e293b;
+            --success: #10b981;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
-        body {
-            margin: 0; background-color: var(--bg); color: var(--text-main);
-            font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden;
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
         /* HEADER */
-        header { padding: 30px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-        .logo { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
-        .logo span { color: var(--primary); }
+        header { padding: 25px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 800; font-size: 22px; color: var(--primary); }
+        .nav-btn { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 8px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+
+        /* HERO */
+        .hero { padding: 80px 0; text-align: center; }
+        h1 { font-size: 52px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; }
+        .hero p { color: var(--text-dim); font-size: 19px; max-width: 600px; margin: 0 auto 30px; }
         
-        /* HERO SECTION */
-        .hero { padding: 100px 0; text-align: center; position: relative; }
-        .hero::before {
-            content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 600px; background: var(--primary-glow); filter: blur(120px); border-radius: 50%; z-index: -1;
-        }
-        .badge { background: var(--card-bg); border: 1px solid var(--border); padding: 8px 16px; border-radius: 100px; font-size: 14px; display: inline-block; margin-bottom: 20px; }
-        h1 { font-size: clamp(40px, 8vw, 72px); line-height: 1.1; margin: 0 0 24px; font-weight: 800; }
-        .hero p { font-size: 20px; color: var(--text-dim); max-width: 800px; margin: 0 auto 40px; }
+        .cta-btn { background: var(--primary); color: white; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 18px; display: inline-block; box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4); }
 
-        /* DASHBOARD PREVIEW (Professional Look) */
-        .preview {
-            background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px;
-            padding: 40px; margin-top: 60px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+        /* SECURITY BOX (Важное дополнение) */
+        .security-alert {
+            background: rgba(16, 185, 129, 0.05); border: 1px solid var(--success);
+            padding: 30px; border-radius: 16px; margin: 40px 0; text-align: left;
         }
-        .stat-card { text-align: left; }
-        .stat-card .val { font-size: 32px; font-weight: 800; color: var(--primary); }
-        .stat-card .label { color: var(--text-dim); font-size: 14px; }
+        .security-alert h3 { color: var(--success); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .security-alert p { font-size: 15px; color: #cbd5e1; }
 
-        /* PRICING (Based on your 100k plan) */
-        .pricing { padding: 100px 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .price-card {
-            background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 40px;
-            position: relative; overflow: hidden;
-        }
-        .price-card.popular { border-color: var(--primary); }
-        .price-card.popular::after {
-            content: 'РЕКОМЕНДУЕМ'; position: absolute; top: 20px; right: -30px; 
-            background: var(--primary); font-size: 10px; font-weight: 800; padding: 5px 40px; transform: rotate(45deg);
-        }
-        .price { font-size: 48px; font-weight: 800; margin: 20px 0; }
-        .price span { font-size: 18px; color: var(--text-dim); }
+        /* PRICING */
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 50px; }
+        .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 20px; text-align: left; }
+        .price-card h3 { font-size: 20px; margin-bottom: 10px; }
+        .price-val { font-size: 36px; font-weight: 800; margin-bottom: 20px; }
+        .price-val span { font-size: 16px; color: var(--text-dim); }
         
-        .list { list-style: none; padding: 0; margin: 30px 0; text-align: left; }
-        .list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 15px; }
-        .list li::before { content: '✓'; color: var(--primary); margin-right: 10px; font-weight: bold; }
+        .features-list { list-style: none; margin-bottom: 30px; }
+        .features-list li { font-size: 14px; margin-bottom: 10px; color: #94a3b8; display: flex; align-items: center; gap: 8px; }
+        .features-list li::before { content: '✔'; color: var(--success); }
 
-        .btn {
-            display: block; width: 100%; padding: 18px; border-radius: 12px; text-decoration: none;
-[23.03.2026 22:03] Папа: font-weight: 600; text-align: center; background: var(--text-main); color: var(--bg);
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(99,102,241,0.2); }
+        .pay-btn { display: block; text-align: center; background: #fff; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 700; }
+        .pay-btn:hover { background: #e2e8f0; }
 
-        footer { padding: 50px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 14px; }
+        footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 60px; color: var(--text-dim); font-size: 13px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <div class="logo">Safe<span>Review</span></div>
-        <a href="https://t.me/ТВОЙ_НИК" class="badge" style="margin-bottom:0; cursor:pointer;">Поддержка 24/7</a>
+        <div class="logo">SafeReview AI</div>
+        <a href="https://t.me/ТВОЙ_НИК" class="nav-btn">Техподдержка</a>
     </header>
 
     <section class="hero">
-        <div class="badge">Enterprise AI Solution 2026</div>
-        <h1>Управляйте репутацией <br> на автопилоте</h1>
-        <p>Профессиональный ИИ-сервис для селлеров Wildberries и Ozon. Сократите расходы на менеджеров на 90% и поднимите рейтинг магазина за 14 дней.</p>
-        
-        <div class="preview">
-            <div class="stat-card">
-                <div class="val">0.4 сек</div>
-                <div class="label">Скорость генерации ответа</div>
-            </div>
-            <div class="stat-card">
-                <div class="val">99.8%</div>
-                <div class="label">Точность распознавания контекста</div>
-            </div>
-            <div class="stat-card">
-                <div class="val">100%</div>
-                <div class="label">Защита от спама и мата</div>
-            </div>
-        </div>
+        <h1>Полный автопилот ваших маркетплейсов</h1>
+        <p>Система сама отслеживает новые отзывы, генерирует ответы и делает допродажи. Настройка за 2 минуты.</p>
+        <a href="#pricing" class="cta-btn">Подключить сейчас</a>
     </section>
+[23.03.2026 22:11] Папа: <div class="security-alert">
+        <h3>🛡 100% Безопасность данных</h3>
+        <p>Для работы сервиса требуется <b>API-токен только с доступом к разделу «Вопросы и отзывы»</b>. Мы не имеем доступа к вашим заказам, финансовым отчетам или изменению цен. Вы сохраняете полный контроль над кабинетом.</p>
+    </div>
 
-    <section class="pricing">
-        <div class="grid">
+    <section id="pricing" class="pricing">
+        <div class="price-grid">
             <div class="price-card">
-                <h3>Start</h3>
-                <div class="price">4 900 <span>/ мес</span></div>
-                <ul class="list">
-                    <li>До 500 ответов в месяц</li>
-                    <li>Автоответ на 5 звёзд</li>
-                    <li>Базовый анализ тональности</li>
-                    <li>Поддержка в Telegram</li>
+                <h3>Тариф Start</h3>
+                <div class="price-val">4 900 ₽ <span>/ мес</span></div>
+                <ul class="features-list">
+                    <li>Автоответы 24/7</li>
+                    <li>До 500 отзывов в месяц</li>
+                    <li>Подключение по API</li>
+                    <li>Только раздел «Отзывы»</li>
                 </ul>
-                <a href="https://t.me/ТВОЙ_НИК" class="btn">Попробовать бесплатно</a>
+                <a href="https://t.me/ТВОЙ_НИК" class="pay-btn">Оплатить доступ</a>
             </div>
 
-            <div class="price-card popular">
-                <h3>Business</h3>
-                <div class="price">12 500 <span>/ мес</span></div>
-                <ul class="list">
-                    <li>Безлимитные ответы</li>
-                    <li>ИИ-допродажи в текстах</li>
-                    <li>Удаление негатива (алгоритм)</li>
-                    <li>Аналитика конкурентов</li>
-                    <li>Приоритетный доступ</li>
+            <div class="price-card" style="border-color: var(--primary);">
+                <h3>Тариф Business</h3>
+                <div class="price-val">12 500 ₽ <span>/ мес</span></div>
+                <ul class="features-list">
+                    <li><b>Безлимит</b> ответов</li>
+                    <li>ИИ-допродажи товаров</li>
+                    <li>Удаление спама</li>
+                    <li>Обучение на вашем бренде</li>
                 </ul>
-                <a href="https://t.me/ТВОЙ_НИК" class="btn btn-primary">Запустить сейчас</a>
-            </div>
-
-            <div class="price-card">
-                <h3>Pro Max</h3>
-                <div class="price">29 900 <span>/ мес</span></div>
-                <ul class="list">
-                    <li>Сеть из 10+ кабинетов</li>
-                    <li>Персональное обучение нейросети</li>
-                    <li>API интеграция</li>
-                    <li>Личный менеджер 24/7</li>
-                </ul>
-                <a href="https://t.me/ТВОЙ_НИК" class="btn">Связаться с нами</a>
+                <a href="https://t.me/ТВОЙ_НИК" class="pay-btn" style="background: var(--primary); color: #fff;">Оплатить доступ</a>
             </div>
         </div>
     </section>
 </div>
 
 <footer>
-    &copy; 2026 SafeReview AI. Все права защищены. Разработано для лидеров рынка маркетплейсов.
+    &copy; 2026 SafeReview AI. Автоматизация для профессиональных селлеров.
 </footer>
 
 </body>
