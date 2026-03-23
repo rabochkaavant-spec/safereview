@@ -1,0 +1,155 @@
+[23.03.2026 21:22] Папа: <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeReview AI — Автоматизация отзывов WB/Ozon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary: #6366f1;
+            --text-main: #ffffff;
+            --text-dim: #94a3b8;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* HEADER */
+        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 24px; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: radial-gradient(circle at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 100px;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin: 0 0 24px;
+            letter-spacing: -2px;
+        }
+        .hero p {
+            font-size: 20px;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.5); }
+
+        /* FEATURES GRID */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 80px 0;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--primary); background: rgba(30, 41, 59, 0.9); }
+        .icon { font-size: 40px; margin-bottom: 20px; display: block; }
+        .card h3 { font-size: 24px; margin: 0 0 12px; }
+        .card p { color: var(--text-dim); margin: 0; }
+
+        /* SECURITY BLOCK */
+        .security {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px dashed var(--primary);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        footer { text-align: center; padding: 60px 0; border-top: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-dim); font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">Safe<span>Review</span></div>
+    </header>
+[23.03.2026 21:22] Папа: <section class="hero">
+        <div class="badge">AI-Powered Solution 2026</div>
+        <h1>Ваш магазин на автопилоте</h1>
+        <p>ИИ-ассистент отвечает на отзывы за 5 секунд, находит негатив и делает допродажи, пока вы занимаетесь бизнесом.</p>
+        <a href="https://t.me/ВАШ_НИК" class="btn">Начать бесплатный тест</a>
+    </section>
+
+    <div class="features">
+        <div class="card">
+            <span class="icon">🛡</span>
+            <h3>Детектор спама</h3>
+            <p>Мгновенно находит отзывы с матом или спамом. Защищаем ваш рейтинг на WB и Ozon в реальном времени.</p>
+        </div>
+        <div class="card">
+            <span class="icon">💰</span>
+            <h3>Умные допродажи</h3>
+            <p>Бот анализирует покупку и вежливо рекомендует сопутствующие товары из вашего каталога.</p>
+        </div>
+        <div class="card">
+            <span class="icon">⚡️</span>
+            <h3>Режим 24/7</h3>
+            <p>Никаких выходных и праздников. Средняя скорость ответа — 5 секунд с сохранением тональности бренда.</p>
+        </div>
+    </div>
+
+    <section class="security">
+        <h2>🔒 Безопасность данных — наш приоритет</h2>
+        <p>Работаем исключительно через официальные API-ключи. Мы не храним ваши пароли и не имеем доступа к финансам магазина.</p>
+    </section>
+
+    <footer>
+        &copy; 2026 SafeReview AI. Все права защищены.
+    </footer>
+</div>
+
+</body>
+</html>
