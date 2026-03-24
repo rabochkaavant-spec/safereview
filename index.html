@@ -3,173 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeReview AI | Панель управления</title>
-    <link rel="icon" href="https://img.icons8.com/fluency/48/robot-2.png" type="image/png">
+    <title>Nero AI — Автопилот отзывов для WB и Ozon</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <meta property="og:title" content="Nero AI — Управляйте репутацией на автопилоте">
+    <meta property="og:description" content="ИИ-сервис для селлеров Wildberries и Ozon. Поднимите рейтинг за 2990₽/мес.">
+    <meta property="og:image" content="https://img.freepik.com/free-vector/artificial-intelligence-ai-robot-concept-illustration_114360-7521.jpg">
+
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.1);
-            --accent: #00d2ff;
+            --bg: #05070a;
+            --card-bg: #0f1218;
+            --primary: #818cf8; /* Мягкий индиго в стиле Nero */
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --border: #1e293b;
+            --success: #10b981;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, #1a1a2e, #16213e);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        .container {
-            max-width: 900px;
-            width: 90%;
-            margin-top: 50px;
-        }
+        header { padding: 25px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 800; font-size: 26px; color: var(--text); text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
 
-        /* Glassmorphism Card */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
+        /* HERO */
+        .hero { padding: 100px 0 60px; text-align: center; }
+        .badge { background: rgba(129, 140, 248, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 14px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
+        h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 800; margin-bottom: 24px; letter-spacing: -2px; line-height: 1.1; }
+        .hero p { color: var(--text-dim); font-size: 20px; max-width: 750px; margin: 0 auto 40px; }
+
+        /* SECURITY (ФИКС ДЛЯ ПК И МОБИЛЬНЫХ) */
+        .security-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 7, 10, 0) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        h1 { font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p.subtitle { color: #8892b0; margin-bottom: 30px; }
-
-        /* Form Styling */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 500; color: #ccd6f6; }
-        
-        input, select {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: #fff;
-            box-sizing: border-box;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
-
-        .btn {
-            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1rem;
-            transition: transform 0.2s;
-        }
-
-        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-
-        .status-badge {
-            display: inline-flex;
+            margin-bottom: 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             align-items: center;
-            background: rgba(0, 255, 127, 0.1);
-            color: #00ff7f;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 20px;
         }
+        .security-box h2 { color: var(--success); font-size: 24px; margin-bottom: 12px; }
+        .security-box p { color: #cbd5e1; font-size: 16px; }
+        .token-info { background: #000; border: 1px dashed var(--success); padding: 20px; border-radius: 16px; font-family: monospace; color: var(--success); font-size: 14px; text-align: center; }
 
-        .dot { height: 8px; width: 8px; background-color: #00ff7f; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 8px #00ff7f; }
+        /* PRICING */
+        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding-bottom: 100px; }
+        .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 45px; border-radius: 32px; transition: 0.3s; position: relative; }
+        .price-card.featured { border-color: var(--primary); transform: scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .price-card h3 { font-size: 24px; margin-bottom: 8px; }
+        .price-val { font-size: 48px; font-weight: 800; margin: 20px 0; }
+        .price-val span { font-size: 18px; color: var(--text-dim); font-weight: 400; }
 
-        footer { margin-top: auto; padding: 20px; color: #444; font-size: 0.8rem; }
+        .features { list-style: none; margin-bottom: 35px; }
+        .features li { margin-bottom: 14px; color: #94a3b8; display: flex; align-items: center; gap: 12px; font-size: 16px; }
+        .features li::before { content: "→"; color: var(--primary); font-weight: bold; }
+.btn { display: block; text-align: center; padding: 20px; border-radius: 16px; text-decoration: none; font-weight: 700; transition: 0.2s; }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { border: 1px solid var(--border); color: #fff; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-dim); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="glass-card">
-        <div class="status-badge"><span class="dot"></span> Система работает стабильно</div>
-        <h1>SafeReview AI</h1>
-        <p class="subtitle">Управление автоответчиком для WB и Ozon</p>
+    <header>
+        <a href="#" class="logo">NERO<span>AI</span></a>
+        <a href="https://t.me/ТВОЙ_НИК" style="color: var(--text-dim); text-decoration: none; font-size: 14px; border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px;">Поддержка 24/7</a>
+    </header>
 
-        <form id="configForm">
-            <div class="form-group">
-                <label for="apiKey">Ваш API-токен (Стандартный)</label>
-                <input type="password" id="apiKey" placeholder="Укажите токен из кабинета селлера" required>
-                <small style="color: #666; display: block; margin-top: 5px;">Мы используем токен только для чтения и ответов на отзывы.</small>
-            </div>
+    <section class="hero">
+        <div class="badge">Enterprise AI Solution 2026</div>
+        <h1>Управляйте репутацией <br> на автопилоте</h1>
+        <p>Профессиональный ИИ-сервис для селлеров Wildberries и Ozon. Сократите расходы на менеджеров на 90% и поднимите рейтинг за 14 дней.</p>
+    </section>
 
-            <div class="form-group">
-                <label for="aiTone">Тональность ответов нейросети</label>
- <select id="aiTone">
-                    <option value="polite">Максимально вежливо (Classic)</option>
-                    <option value="friendly">Дружелюбно и тепло (Casual)</option>
-                    <option value="strict">Строго по делу (Official)</option>
-                    <option value="creative">С юмором и креативом (Brand)</option>
-                </select>
-            </div>
+    <section class="security-box">
+        <div>
+            <h2>🛡 Безопасность официального API</h2>
+            <p>Ваш токен используется только для публикации ответов. Nero AI не имеет доступа к вашим финансам, ценам или личным данным кабинета.</p>
+        </div>
+        <div class="token-info">
+            ACCESS_LEVEL: feedback_only <br>
+            ENCRYPTION: AES-256
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="userEmail">Email для уведомлений</label>
-                <input type="email" id="userEmail" placeholder="example@mail.ru" required>
-            </div>
+    <div class="pricing">
+        <div class="price-card">
+            <h3>Тариф Lite</h3>
+            <div class="price-val">2 990 ₽ <span>/ мес</span></div>
+            <ul class="features">
+                <li>До 200 ответов в месяц</li>
+                <li>Только 5★ отзывы</li>
+                <li>Базовый анализ тональности</li>
+                <li>Поддержка в Telegram</li>
+            </ul>
+            <a href="https://t.me/ТВОЙ_НИК" class="btn btn-outline">Попробовать</a>
+        </div>
 
-            <button type="submit" class="btn" id="saveBtn">Активировать автопилот</button>
-        </form>
+        <div class="price-card featured">
+            <div style="position: absolute; top: -15px; right: 30px; background: var(--primary); padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 800;">POPULAR</div>
+            <h3>Тариф Business</h3>
+            <div class="price-val">7 900 ₽ <span>/ мес</span></div>
+            <ul class="features">
+                <li><b>Безлимитные</b> ответы</li>
+                <li>ИИ-допродажи в текстах</li>
+                <li>Удаление негатива (алгоритмы)</li>
+                <li>Аналитика конкурентов</li>
+            </ul>
+            <a href="https://t.me/ТВОЙ_НИК" class="btn btn-primary">Выбрать Business</a>
+        </div>
+
+        <div class="price-card">
+            <h3>Тариф Pro Max</h3>
+            <div class="price-val">19 900 ₽ <span>/ мес</span></div>
+            <ul class="features">
+                <li>Сеть из 10+ кабинетов</li>
+                <li>Персональное обучение нейросети</li>
+                <li>API интеграция</li>
+                <li>Личный менеджер 24/7</li>
+            </ul>
+            <a href="https://t.me/ТВОЙ_НИК" class="btn btn-outline">Связаться</a>
+        </div>
     </div>
+
+    <footer>
+        &copy; 2026 Nero AI. Все права защищены. Разработано для лидеров рынка маркетплейсов.
+    </footer>
 </div>
-
-<footer>Powered by SafeReview AI Engine & GitHub Pages</footer>
-
-<script>
-    document.getElementById('configForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const btn = document.getElementById('saveBtn');
-        const originalText = btn.innerText;
-        
-        // Данные из формы
-        const data = {
-            apiKey: document.getElementById('apiKey').value,
-            tone: document.getElementById('aiTone').value,
-            email: document.getElementById('userEmail').value,
-            source: 'GitHub_WebApp'
-        };
-
-        btn.innerText = 'Сохранение...';
-        btn.disabled = true;
-
-        try {
-            // ЗАМЕНИ ЭТУ ССЫЛКУ на свой Webhook из Make.com
-            const WEBHOOK_URL = 'https://hook.eu1.make.com/твой_код_тут';
-
-            const response = await fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                alert('✅ Настройки успешно сохранены! SafeReview AI начнет работу в течение 15 минут.');
-            } else {
-                throw new Error();
-            }
-        } catch (error) {
-            alert('❌ Ошибка связи с сервером. Попробуйте позже или напишите в поддержку.');
-        } finally {
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
-    });
-</script>
 
 </body>
 </html>
