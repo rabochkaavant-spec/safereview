@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -84,7 +84,7 @@
             padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
- .form-group { margin-bottom: 15px; }
+.form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); }
         input, select, textarea {
             width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
@@ -164,7 +164,143 @@
         <span class="close-btn" onclick="closeCabinet()">&times;</span>
         <h2 id="modalTitle">Настройка Nero AI</h2>
         <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения</p>
- <form id="mainForm">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nero AI — Автопилот отзывов для WB и Ozon</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #05070a;
+            --card-bg: #0f1218;
+            --primary: #818cf8; 
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --border: #1e293b;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 800; font-size: 24px; color: var(--text); text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+
+        .support-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .support-link:hover { border-color: var(--primary); color: #fff; }
+
+        .hero { padding: 60px 0 40px; text-align: center; }
+        .badge { background: rgba(129, 140, 248, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
+        h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
+        .hero p { color: var(--text-dim); font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
+
+        #cabinetModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
+        }
+        .cabinet-card {
+            background: var(--card-bg); border: 1px solid var(--primary);
+            padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
+
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); }
+        input, select, textarea {
+            width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
+            border-radius: 10px; color: #fff; font-size: 15px; font-family: inherit;
+        }
+        textarea { height: 80px; resize: none; }
+
+        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 28px; transition: 0.3s; position: relative;}
+        .price-card.featured { border-color: var(--primary); }
+        .price-val { font-size: 42px; font-weight: 800; margin: 15px 0; }
+        .features { list-style: none; margin-bottom: 30px; font-size: 15px; color: var(--text-dim); }
+        .features li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+
+        .btn { display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; border: none; transition: 0.2s; }
+.btn-primary { background: var(--primary); color: #fff; }
+        .btn-outline { border: 1px solid var(--border); color: #fff; background: transparent; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 14px; }
+        footer a { color: var(--primary); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="#" class="logo">NERO<span>AI</span></a>
+        <a href="https://t.me/neroai_support" target="_blank" class="support-link">Поддержка 24/7</a>
+    </header>
+
+    <section class="hero">
+        <div class="badge">Enterprise AI Solution 2026</div>
+        <h1>Управляйте репутацией <br> на автопилоте</h1>
+        <p>Ваш личный ИИ-менеджер Nero AI. Автоматизация отзывов для селлеров Wildberries и Ozon.</p>
+    </section>
+
+    <div class="pricing">
+        <div class="price-card">
+            <h3>Lite</h3>
+            <div class="price-val">2 990 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
+            <ul class="features">
+                <li>✓ 200 ответов/мес</li>
+                <li>✓ Базовая нейросеть</li>
+            </ul>
+            <button onclick="openCabinet('Lite')" class="btn btn-outline">Настроить</button>
+        </div>
+
+        <div class="price-card featured">
+            <h3>Business</h3>
+            <div class="price-val">7 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
+            <ul class="features">
+                <li>✓ Безлимит ответов</li>
+                <li>✓ ИИ-допродажи</li>
+            </ul>
+            <button onclick="openCabinet('Business')" class="btn btn-primary">Выбрать Business</button>
+        </div>
+
+        <div class="price-card">
+            <h3>Pro Max</h3>
+            <div class="price-val">19 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
+            <ul class="features">
+                <li>✓ Multi-кабинеты (10+)</li>
+                <li>✓ Личный менеджер</li>
+            </ul>
+            <button onclick="openCabinet('Pro')" class="btn btn-outline">Выбрать Pro</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Nero AI. Решение для ИП и самозанятых.</p>
+    </footer>
+</div>
+
+<div id="cabinetModal">
+    <div class="cabinet-card">
+        <span class="close-btn" onclick="closeCabinet()">&times;</span>
+        <h2 id="modalTitle">Настройка Nero AI</h2>
+        <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения</p>
+        
+        <form id="mainForm">
             <div class="form-group">
                 <label>Имя (как в кабинете)</label>
                 <input type="text" id="customer_name" placeholder="Ваше имя" required>
@@ -198,8 +334,7 @@
 
 <script>
     let selectedPlan = 'Lite';
-
-    // Вставь сюда ссылки, когда Т-Банк их выдаст
+// Вставь сюда ссылки из Т-Банка, когда получишь их (пока пусто)
     const paymentLinks = {
         'Lite': '#', 
         'Business': '#',
@@ -217,13 +352,13 @@
     document.getElementById('mainForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
-        btn.innerText = 'Регистрация...';
+        btn.innerText = 'Подключение...';
         btn.disabled = true;
 
         const data = {
             Customer_nam: document.getElementById('customer_name').value,
-            token: document.getElementById('token').value, // Настоящий токен теперь здесь
-            Review_Text: document.getElementById('review_text').value, // Отзыв теперь здесь
+            token: document.getElementById('token').value,
+            Review_Text: document.getElementById('review_text').value,
             mp: document.getElementById('platform').value,
             tone: document.getElementById('tone').value,
             plan: selectedPlan,
@@ -231,8 +366,8 @@
         };
 
         try {
-            // ЗАМЕНИ НА СВОЙ URL ИЗ MAKE
-            const URL = 'https://hook.eu1.make.com/твой_код'; 
+            // ТВОЙ URL ИЗ MAKE
+            const URL = 'https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t'; 
             
             const res = await fetch(URL, {
                 method: 'POST',
@@ -242,17 +377,17 @@
 
             if (res.ok) {
                 if(paymentLinks[selectedPlan] !== '#') {
-                    alert('Данные приняты! Переходим к оплате.');
+                    alert('Данные сохранены! Сейчас откроется страница оплаты.');
                     window.location.href = paymentLinks[selectedPlan];
                 } else {
-                    alert('✅ Успешно! Мы свяжемся с вами для завершения настройки.');
+                    alert('✅ Успешно! Данные отправлены в Nero AI.');
                     closeCabinet();
                 }
             } else {
-                alert('Ошибка соединения. Попробуйте еще раз.');
+                alert('Ошибка сервера (Make). Проверьте, включен ли сценарий.');
             }
         } catch (err) {
-            alert('Сбой сети.');
+            alert('Сбой сети. Проверьте адрес вебхука или CORS.');
         } finally {
             btn.innerText = 'Активировать';
             btn.disabled = false;
