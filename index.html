@@ -42,7 +42,6 @@
         h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
         .hero p { color: var(--text-dim); font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
 
-        /* ИСПРАВЛЕННЫЙ БЛОК БЕЗОПАСНОСТИ */
         .security-box {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 7, 10, 0) 100%);
             border: 1px solid rgba(16, 185, 129, 0.2);
@@ -71,7 +70,7 @@
             font-family: monospace;
             color: var(--success);
             font-size: 13px;
-            width: 100%; /* Теперь не вылетает */
+            width: 100%;
             max-width: 340px;
             word-wrap: break-word;
         }
@@ -128,7 +127,7 @@
     <section class="security-box">
         <div class="security-text">
             <h2>🛡 Безопасность API</h2>
-            <p style="color: #cbd5e1; font-size: 15px; max-width: 450px;">Официальный метод подключения. Nero AI видит только отзывы. Ваши финансы и личные данные кабинета остаются скрытыми.</p>
+            <p style="color: #cbd5e1; font-size: 15px; max-width: 450px;">Официальный метод подключения. Nero AI видит только отзывы. Ваши финансы и данные кабинета защищены.</p>
         </div>
         <div class="token-info">
             ACCESS_LEVEL: feedback_only<br>
@@ -152,7 +151,7 @@
             <div class="price-val">7 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
             <ul class="features">
                 <li>✓ Безлимит ответов</li>
-                <li>✓ ИИ-допродажи</li>
+                <li>✓ ИИ-допродажи + Модерация</li>
             </ul>
             <button onclick="openCabinet('Business')" class="btn btn-primary">Выбрать Business</button>
         </div>
@@ -181,6 +180,10 @@
         
         <form id="mainForm">
             <div class="form-group">
+                <label>Ваш Telegram ID</label>
+                <input type="text" id="tg_id" placeholder="Узнать можно в @userinfobot" required>
+            </div>
+            <div class="form-group">
                 <label>Площадка</label>
                 <select id="platform">
                     <option value="wb">Wildberries</option>
@@ -188,8 +191,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>API-токен (Отзывы)</label>
-                <input type="password" id="token" placeholder="Вставьте ваш ключ" required>
+                <label>API-токен (Ключ для отзывов)</label>
+                <input type="password" id="token" placeholder="Вставьте ваш API ключ" required>
             </div>
             <div class="form-group">
                 <label>Тональность ответов</label>
@@ -221,15 +224,17 @@
         btn.disabled = true;
 
         const data = {
-            token: document.getElementById('token').value,
+            tg_id: document.getElementById('tg_id').value,
+            token: document.getElementById('token').value, // Это ключ от кабинета
             mp: document.getElementById('platform').value,
             tone: document.getElementById('tone').value,
             plan: selectedPlan,
-            date: new Date().toLocaleString("ru-RU")
+            date: new Date().toLocaleString("ru-RU"),
+            text_review: "" // Поле для будущего отзыва (заполняется в Make)
         };
 
         try {
-            // Сюда вставь URL из Make.com
+            // Замени на свой Webhook из Make.com
             const URL = 'https://hook.eu1.make.com/твой_код';
             const res = await fetch(URL, {
                 method: 'POST',
@@ -238,13 +243,13 @@
             });
 
             if (res.ok) {
-                alert('✅ Успешно! Nero AI начнет работу в течение 15 минут.');
+                alert('✅ Успешно! Nero AI свяжется с вами в Telegram и начнет работу в течение 15 минут.');
                 closeCabinet();
             } else {
-                alert('Ошибка. Проверьте соединение.');
+                alert('Ошибка сервера. Проверьте правильность токена.');
             }
         } catch (err) {
-            alert('Сбой сети. Попробуйте еще раз.');
+            alert('Сбой сети. Попробуйте еще раз с включенным VPN/Proxy, если вы в РФ.');
         } finally {
             btn.innerText = 'Активировать';
             btn.disabled = false;
