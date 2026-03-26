@@ -84,7 +84,7 @@
             justify-content: center; align-items: center; padding: 20px;
         }
         .cabinet-card {
- background: var(--card-bg); border: 1px solid var(--primary);
+background: var(--card-bg); border: 1px solid var(--primary);
             padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
@@ -229,16 +229,26 @@
 </div>
 
 <script>
-    let selectedPlan = 'Lite';
+    let currentPlan = 'Lite';
 
-    function openCabinet(plan) { 
-        selectedPlan = plan;
-        document.getElementById('modalTitle').innerText = 'Тариф: ' + plan;
-        document.getElementById('cabinetModal').style.display = 'flex'; 
+    function openCabinet(planName) {
+        currentPlan = planName;
+        document.getElementById('modalTitle').innerText = 'Тариф: ' + planName;
+        document.getElementById('cabinetModal').style.display = 'flex';
     }
 
-    function closeCabinet() { document.getElementById('cabinetModal').style.display = 'none'; }
-: document.getElementById('mainForm').addEventListener('submit', async (e) => {
+    function closeCabinet() {
+        document.getElementById('cabinetModal').style.display = 'none';
+    }
+ // Закрытие по клику вне модального окна
+    window.onclick = function(event) {
+        const modal = document.getElementById('cabinetModal');
+        if (event.target == modal) {
+            closeCabinet();
+        }
+    }
+
+    document.getElementById('mainForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
         btn.innerText = 'Подключение...';
@@ -249,13 +259,12 @@
             token: document.getElementById('token').value,
             mp: document.getElementById('platform').value,
             tone: document.getElementById('tone').value,
-            plan: selectedPlan,
+            plan: currentPlan,
             date: new Date().toLocaleString("ru-RU"),
-            text_review: "" // Оставляем поле пустым для работы в сценарии
+            text_review: "" 
         };
 
         try {
-            // Вставлен твой рабочий URL вебхука
             const URL = 'https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t';
             const res = await fetch(URL, {
                 method: 'POST',
@@ -267,10 +276,10 @@
                 alert('✅ Успешно! Nero AI подключен. Теперь каждый ответ ИИ будет приходить вам в Telegram на согласование.');
                 closeCabinet();
             } else {
-                alert('Ошибка сервера Make.com. Пожалуйста, напишите в поддержку.');
+                alert('Ошибка сервера. Проверьте сценарий в Make.');
             }
         } catch (err) {
-            alert('Сбой сети. Попробуйте еще раз с включенным VPN/Proxy, если вы в РФ.');
+            alert('Сбой сети. Попробуйте еще раз (возможно, нужен VPN для Make.com).');
         } finally {
             btn.innerText = 'Активировать автопилот';
             btn.disabled = false;
