@@ -42,7 +42,6 @@
         h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
         .hero p { color: var(--text-dim); font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
 
-        /* ИСПРАВЛЕННЫЙ БЛОК БЕЗОПАСНОСТИ */
         .security-box {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 7, 10, 0) 100%);
             border: 1px solid rgba(16, 185, 129, 0.2);
@@ -71,12 +70,10 @@
             font-family: monospace;
             color: var(--success);
             font-size: 13px;
-            width: 100%; /* Теперь не вылетает */
             max-width: 340px;
             word-wrap: break-word;
         }
 
-        /* MODAL */
         #cabinetModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 2000;
@@ -87,14 +84,14 @@
             padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
-.form-group { margin-bottom: 15px; }
+ .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); }
-        input, select {
+        input, select, textarea {
             width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
-            border-radius: 10px; color: #fff; font-size: 15px;
+            border-radius: 10px; color: #fff; font-size: 15px; font-family: inherit;
         }
+        textarea { height: 80px; resize: none; }
 
-        /* PRICING */
         .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 28px; transition: 0.3s; position: relative;}
         .price-card.featured { border-color: var(--primary); }
@@ -125,17 +122,6 @@
         <p>Ваш личный ИИ-менеджер Nero AI. Автоматизация отзывов для селлеров Wildberries и Ozon.</p>
     </section>
 
-    <section class="security-box">
-        <div class="security-text">
-            <h2>🛡 Безопасность API</h2>
-            <p style="color: #cbd5e1; font-size: 15px; max-width: 450px;">Официальный метод подключения. Nero AI видит только отзывы. Ваши финансы и личные данные кабинета остаются скрытыми.</p>
-        </div>
-        <div class="token-info">
-            ACCESS_LEVEL: feedback_only<br>
-            ENCRYPTION: AES-256
-        </div>
-    </section>
-
     <div class="pricing">
         <div class="price-card">
             <h3>Lite</h3>
@@ -164,12 +150,12 @@
                 <li>✓ Multi-кабинеты (10+)</li>
                 <li>✓ Личный менеджер</li>
             </ul>
-            <button onclick="openCabinet('Pro')" class="btn btn-outline">Связаться</button>
+            <button onclick="openCabinet('Pro')" class="btn btn-outline">Выбрать Pro</button>
         </div>
     </div>
- <footer>
+
+    <footer>
         <p>&copy; 2026 Nero AI. Решение для ИП и самозанятых.</p>
-        <p style="margin-top: 10px;">Возникли вопросы? <a href="https://t.me/neroai_support" target="_blank">Напишите нам @neroai_support</a></p>
     </footer>
 </div>
 
@@ -178,8 +164,11 @@
         <span class="close-btn" onclick="closeCabinet()">&times;</span>
         <h2 id="modalTitle">Настройка Nero AI</h2>
         <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения</p>
-        
-        <form id="mainForm">
+ <form id="mainForm">
+            <div class="form-group">
+                <label>Имя (как в кабинете)</label>
+                <input type="text" id="customer_name" placeholder="Ваше имя" required>
+            </div>
             <div class="form-group">
                 <label>Площадка</label>
                 <select id="platform">
@@ -188,8 +177,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>API-токен (Отзывы)</label>
-                <input type="password" id="token" placeholder="Вставьте ваш ключ" required>
+                <label>API-токен (ключ)</label>
+                <input type="password" id="token" placeholder="Секретный ключ API" required>
+            </div>
+            <div class="form-group">
+                <label>Текст отзыва (для проверки)</label>
+                <textarea id="review_text" placeholder="Напишите тестовый отзыв здесь..." required></textarea>
             </div>
             <div class="form-group">
                 <label>Тональность ответов</label>
@@ -206,6 +199,13 @@
 <script>
     let selectedPlan = 'Lite';
 
+    // Вставь сюда ссылки, когда Т-Банк их выдаст
+    const paymentLinks = {
+        'Lite': '#', 
+        'Business': '#',
+        'Pro': '#'
+    };
+
     function openCabinet(plan) { 
         selectedPlan = plan;
         document.getElementById('modalTitle').innerText = 'Тариф: ' + plan;
@@ -217,11 +217,13 @@
     document.getElementById('mainForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
-        btn.innerText = 'Подключение...';
+        btn.innerText = 'Регистрация...';
         btn.disabled = true;
 
         const data = {
-            token: document.getElementById('token').value,
+            Customer_nam: document.getElementById('customer_name').value,
+            token: document.getElementById('token').value, // Настоящий токен теперь здесь
+            Review_Text: document.getElementById('review_text').value, // Отзыв теперь здесь
             mp: document.getElementById('platform').value,
             tone: document.getElementById('tone').value,
             plan: selectedPlan,
@@ -229,8 +231,9 @@
         };
 
         try {
-            // Сюда вставь URL из Make.com
-            const URL = 'https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t';
+            // ЗАМЕНИ НА СВОЙ URL ИЗ MAKE
+            const URL = 'https://hook.eu1.make.com/твой_код'; 
+            
             const res = await fetch(URL, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -238,13 +241,18 @@
             });
 
             if (res.ok) {
-                alert('✅ Успешно! Nero AI начнет работу в течение 15 минут.');
-                closeCabinet();
+                if(paymentLinks[selectedPlan] !== '#') {
+                    alert('Данные приняты! Переходим к оплате.');
+                    window.location.href = paymentLinks[selectedPlan];
+                } else {
+                    alert('✅ Успешно! Мы свяжемся с вами для завершения настройки.');
+                    closeCabinet();
+                }
             } else {
-                alert('Ошибка. Проверьте соединение.');
+                alert('Ошибка соединения. Попробуйте еще раз.');
             }
         } catch (err) {
-            alert('Сбой сети. Попробуйте еще раз.');
+            alert('Сбой сети.');
         } finally {
             btn.innerText = 'Активировать';
             btn.disabled = false;
