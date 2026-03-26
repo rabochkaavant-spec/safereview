@@ -3,259 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nero AI — Автопилот отзывов для WB и Ozon</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" type="image/x-icon">
+    <title>Nero AI — Автопилот отзывов</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --bg: #05070a;
-            --card-bg: #0f1218;
-            --primary: #818cf8; 
-            --text: #ffffff;
-            --text-dim: #94a3b8;
-            --border: #1e293b;
-            --success: #10b981;
-        }
-
+        :root { --bg: #05070a; --card-bg: #0f1218; --primary: #818cf8; --text: #ffffff; --border: #1e293b; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-        header { padding: 20px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
-        .logo { font-weight: 800; font-size: 24px; color: var(--text); text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--primary); }
-
-        .support-link {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 13px;
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        .support-link:hover { border-color: var(--primary); color: #fff; }
-
-        .hero { padding: 60px 0 40px; text-align: center; }
-        .badge { background: rgba(129, 140, 248, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
-        h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
-        .hero p { color: var(--text-dim); font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
-
-        .security-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 7, 10, 0) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 24px;
-            padding: 24px;
-            margin: 40px 0 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-            text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .security-box { flex-direction: row; text-align: left; padding: 40px; justify-content: space-between; }
-        }
-
-        .security-text h2 { color: var(--success); font-size: 22px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; justify-content: center; }
-        @media (min-width: 768px) { .security-text h2 { justify-content: flex-start; } }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
         
-        .token-info {
-            background: #000;
-            border: 1px dashed var(--success);
-            padding: 16px;
-            border-radius: 16px;
-            font-family: monospace;
-            color: var(--success);
-            font-size: 13px;
-            max-width: 340px;
-            word-wrap: break-word;
-        }
+        .header { text-align: center; margin-bottom: 50px; }
+        .header h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; }
+        .header span { color: var(--primary); }
 
-        #cabinetModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 2000;
-            justify-content: center; align-items: center; padding: 20px;
-        }
-        .cabinet-card {
-            background: var(--card-bg); border: 1px solid var(--primary);
-            padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
-        }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
-.form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); }
-        input, select, textarea {
-            width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
-            border-radius: 10px; color: #fff; font-size: 15px; font-family: inherit;
-        }
-        textarea { height: 80px; resize: none; }
+        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 32px; transition: 0.3s; }
+        .card.featured { border-color: var(--primary); box-shadow: 0 0 20px rgba(129, 140, 248, 0.1); }
+        .card h3 { font-size: 24px; margin-bottom: 10px; }
+        .price { font-size: 36px; font-weight: 800; margin-bottom: 20px; }
+        .features { list-style: none; color: #94a3b8; margin-bottom: 30px; }
+        .features li { margin-bottom: 10px; }
 
-        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
-        .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 28px; transition: 0.3s; position: relative;}
-        .price-card.featured { border-color: var(--primary); }
-        .price-val { font-size: 42px; font-weight: 800; margin: 15px 0; }
-        .features { list-style: none; margin-bottom: 30px; font-size: 15px; color: var(--text-dim); }
-        .features li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-
-        .btn { display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; border: none; transition: 0.2s; }
+        .btn { display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 700; text-align: center; cursor: pointer; border: none; transition: 0.2s; text-decoration: none; }
         .btn-primary { background: var(--primary); color: #fff; }
         .btn-outline { border: 1px solid var(--border); color: #fff; background: transparent; }
         .btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 14px; }
-        footer a { color: var(--primary); text-decoration: none; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <header>
-        <a href="#" class="logo">NERO<span>AI</span></a>
-        <a href="https://t.me/neroai_support" target="_blank" class="support-link">Поддержка 24/7</a>
-    </header>
-
-    <section class="hero">
-        <div class="badge">Enterprise AI Solution 2026</div>
-        <h1>Управляйте репутацией <br> на автопилоте</h1>
-        <p>Ваш личный ИИ-менеджер Nero AI. Автоматизация отзывов для селлеров Wildberries и Ozon.</p>
-    </section>
-
-    <div class="pricing">
-        <div class="price-card">
-            <h3>Lite</h3>
-            <div class="price-val">2 990 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
-            <ul class="features">
-                <li>✓ 200 ответов/мес</li>
-                <li>✓ Базовая нейросеть</li>
-            </ul>
-            <button onclick="openCabinet('Lite')" class="btn btn-outline">Настроить</button>
-        </div>
-
-        <div class="price-card featured">
-            <h3>Business</h3>
-            <div class="price-val">7 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
-            <ul class="features">
-                <li>✓ Безлимит ответов</li>
-                <li>✓ ИИ-допродажи</li>
-            </ul>
-            <button onclick="openCabinet('Business')" class="btn btn-primary">Выбрать Business</button>
-        </div>
-
-        <div class="price-card">
-            <h3>Pro Max</h3>
-            <div class="price-val">19 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
-            <ul class="features">
-                <li>✓ Multi-кабинеты (10+)</li>
-                <li>✓ Личный менеджер</li>
-            </ul>
-            <button onclick="openCabinet('Pro')" class="btn btn-outline">Выбрать Pro</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Nero AI. Решение для ИП и самозанятых.</p>
-    </footer>
-</div>
-
-<div id="cabinetModal">
-    <div class="cabinet-card">
-        <span class="close-btn" onclick="closeCabinet()">&times;</span>
-        <h2 id="modalTitle">Настройка Nero AI</h2>
-        <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения</p>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nero AI — Автопилот отзывов</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --bg: #05070a; --card-bg: #0f1218; --primary: #818cf8; --text: #ffffff; --border: #1e293b; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; justify-content: center; padding: 40px 20px; }
-        .container { max-width: 450px; width: 100%; background: var(--card-bg); padding: 30px; border-radius: 24px; border: 1px solid var(--primary); }
-        h2 { margin-bottom: 20px; font-weight: 800; text-align: center; }
+        /* Модалка */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--card-bg); border: 1px solid var(--primary); padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative; }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #94a3b8; }
+        
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-size: 13px; color: #94a3b8; }
         input, select, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid var(--border); border-radius: 10px; color: #fff; font-family: inherit; }
         textarea { height: 80px; resize: none; }
-        .btn { width: 100%; padding: 16px; background: var(--primary); border: none; border-radius: 12px; color: #fff; font-weight: 700; cursor: pointer; margin-top: 10px; }
-        .btn:disabled { opacity: 0.5; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 id="modalTitle">Настройка Тарифа</h2>
-    <form id="mainForm">
-        <div class="form-group">
-            <label>Имя пользователя</label>
-            <input type="text" id="Customer_nam" placeholder="Иван" required>
+    <div class="header">
+        <h1>NERO<span>AI</span></h1>
+        <p style="color: #94a3b8;">Автоматизация отзывов на маркетплейсах</p>
+    </div>
+
+    <div class="pricing">
+        <div class="card">
+            <h3>Lite</h3>
+            <div class="price">2 990 ₽ <small style="font-size: 14px; font-weight: 400;">/мес</small></div>
+            <ul class="features">
+                <li>• 200 ответов в месяц</li>
+                <li>• Базовый ИИ</li>
+            </ul>
+            <button class="btn btn-outline" onclick="openForm('Lite')">Выбрать Lite</button>
         </div>
-        <div class="form-group">
-            <label>Площадка</label>
-            <select id="Platform">
-                <option value="WB">Wildberries</option>
-                <option value="Ozon">Ozon</option>
-            </select>
+
+        <div class="card featured">
+            <h3>Business</h3>
+            <div class="price">7 900 ₽ <small style="font-size: 14px; font-weight: 400;">/мес</small></div>
+            <ul class="features">
+                <li>• Безлимитные ответы</li>
+                <li>• Умные допродажи</li>
+            </ul>
+            <button class="btn btn-primary" onclick="openForm('Business')">Выбрать Business</button>
         </div>
-        <div class="form-group">
-            <label>API-токен</label>
-            <input type="password" id="token" placeholder="Ваш ключ" required>
-        </div>
-        <div class="form-group">
-            <label>Текст отзыва для проверки</label>
-            <textarea id="Review_Text" placeholder="Введите текст отзыва..." required></textarea>
-        </div>
-        <div class="form-group">
-            <label>Тональность</label>
-            <select id="Tone">
-                <option value="strict">Деловая (strict)</option>
-                <option value="friendly">Дружелюбная</option>
-            </select>
-        </div>
-        <input type="hidden" id="plan" value="Business">
-        <button type="submit" class="btn" id="saveBtn">Активировать</button>
-    </form>
+    </div>
+</div>
+ <div id="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeForm()">&times;</span>
+        <h2 id="mTitle" style="margin-bottom: 20px;">Настройка</h2>
+        <form id="nForm">
+            <div class="form-group">
+                <label>Ваше имя</label>
+                <input type="text" id="Customer_nam" placeholder="Иван" required>
+            </div>
+            <div class="form-group">
+                <label>Площадка</label>
+                <select id="Platform">
+                    <option value="WB">Wildberries</option>
+                    <option value="Ozon">Ozon</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>API Токен</label>
+                <input type="password" id="token" placeholder="Ваш ключ" required>
+            </div>
+            <div class="form-group">
+                <label>Тестовый отзыв</label>
+                <textarea id="Review_Text" placeholder="Напишите любой отзыв здесь..." required></textarea>
+            </div>
+            <input type="hidden" id="plan">
+            <button type="submit" class="btn btn-primary" id="sBtn">Активировать</button>
+        </form>
+    </div>
 </div>
 
 <script>
-    document.getElementById('mainForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('saveBtn');
-        btn.innerText = 'Связь с Nero AI...';
-        btn.disabled = true;
+    function openForm(plan) {
+        document.getElementById('plan').value = plan;
+        document.getElementById('mTitle').innerText = 'Тариф: ' + plan;
+        document.getElementById('modal').style.display = 'flex';
+    }
+    function closeForm() { document.getElementById('modal').style.display = 'none'; }
 
-        // Эти названия ДОЛЖНЫ совпадать с розовыми блоками в твоем Make
+    document.getElementById('nForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const b = document.getElementById('sBtn');
+        b.innerText = 'Отправка...';
+        b.disabled = true;
+
         const data = {
             Customer_nam: document.getElementById('Customer_nam').value,
             Review_Text: document.getElementById('Review_Text').value,
             Platform: document.getElementById('Platform').value,
-            Tone: document.getElementById('Tone').value,
             plan: document.getElementById('plan').value,
-            token: document.getElementById('token').value
+            token: document.getElementById('token').value,
+            date: new Date().toLocaleString("ru-RU")
         };
 
         try {
-            const res = await fetch('https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t', {
+            const r = await fetch('https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             });
-
-            if (res.ok) {
-[26.03.2026 22:28] Папа: alert('✅ Данные успешно улетели в таблицу!');
-            } else {
-                alert('Ошибка сервера Make. Проверь кнопку Run Once.');
-            }
-        } catch (err) {
-            alert('Сбой сети. Проверь адрес в коде.');
-        } finally {
-            btn.innerText = 'Активировать';
-            btn.disabled = false;
-        }
+            if (r.ok) {
+                alert('✅ Готово! Данные отправлены.');
+                closeForm();
+            } else { alert('Ошибка Make. Проверь кнопку Run Once.'); }
+        } catch (err) { alert('Сбой сети.'); }
+        finally { b.innerText = 'Активировать'; b.disabled = false; }
     });
 </script>
 
