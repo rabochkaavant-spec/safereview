@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nero AI — Автопилот отзывов для WB и Ozon</title>
+    <title>Nero AI — Ваш личный отдел репутации на автопилоте</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
@@ -40,7 +40,9 @@
         .hero { padding: 60px 0 40px; text-align: center; }
         .badge { background: rgba(129, 140, 248, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
         h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
-        .hero p { color: var(--text-dim); font-size: 18px; max-width: 700px; margin: 0 auto 30px; }
+        .hero p { color: var(--text-dim); font-size: 18px; max-width: 750px; margin: 0 auto 30px; }
+
+        .hero-triggers { display: flex; gap: 20px; justify-content: center; margin-top: 20px; font-size: 14px; color: var(--success); font-weight: 600; }
 
         .security-box {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 7, 10, 0) 100%);
@@ -82,11 +84,12 @@
             justify-content: center; align-items: center; padding: 20px;
         }
         .cabinet-card {
-            background: var(--card-bg); border: 1px solid var(--primary);
+ background: var(--card-bg); border: 1px solid var(--primary);
             padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
-.form-group { margin-bottom: 15px; }
+
+        .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); }
         input, select {
             width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
@@ -96,7 +99,7 @@
         /* PRICING */
         .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
         .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 28px; transition: 0.3s; position: relative;}
-        .price-card.featured { border-color: var(--primary); }
+        .price-card.featured { border-color: var(--primary); box-shadow: 0 0 30px rgba(129, 140, 248, 0.1); }
         .price-val { font-size: 42px; font-weight: 800; margin: 15px 0; }
         .features { list-style: none; margin-bottom: 30px; font-size: 15px; color: var(--text-dim); }
         .features li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -119,15 +122,21 @@
     </header>
 
     <section class="hero">
-        <div class="badge">Enterprise AI Solution 2026</div>
-        <h1>Управляйте репутацией <br> на автопилоте</h1>
-        <p>Ваш личный ИИ-менеджер Nero AI. Автоматизация отзывов для селлеров Wildberries и Ozon.</p>
+        <div class="badge">Решение №1 для селлеров в 2026 году</div>
+        <h1>Перестаньте тратить <br> 10 часов в неделю на отзывы</h1>
+        <p>Nero AI — это ваш личный отдел репутации в Telegram. ИИ пишет идеальные ответы, защищает от негатива и допродает товары, пока вы занимаетесь масштабированием бизнеса.</p>
+        
+        <div class="hero-triggers">
+            <span>● Ответ за 60 сек</span>
+            <span>● Рост рейтинга ⭐</span>
+            <span>● 0% риска блокировки</span>
+        </div>
     </section>
 
     <section class="security-box">
         <div class="security-text">
             <h2>🛡 Безопасность API</h2>
-            <p style="color: #cbd5e1; font-size: 15px; max-width: 450px;">Официальный метод подключения. Nero AI видит только отзывы. Ваши финансы и данные кабинета защищены.</p>
+            <p style="color: #cbd5e1; font-size: 15px; max-width: 450px;">Официальный метод подключения. Nero AI видит только отзывы. Ваши финансы и данные кабинета защищены AES-256 шифрованием.</p>
         </div>
         <div class="token-info">
             ACCESS_LEVEL: feedback_only<br>
@@ -138,36 +147,48 @@
     <div class="pricing">
         <div class="price-card">
             <h3>Lite</h3>
+            <p style="font-size: 13px; color: var(--primary); margin-bottom: 10px;">Для начинающих селлеров</p>
             <div class="price-val">2 990 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
             <ul class="features">
-                <li>✓ 200 ответов/мес</li>
-                <li>✓ Базовая нейросеть</li>
+                <li>✓ 200 идеальных ответов</li>
+                <li>✓ Тон под ваш бренд (Tone of Voice)</li>
+                <li>✓ Ответ за 60 секунд ⚡</li>
+                <li>✓ Экономия 10 часов в неделю</li>
             </ul>
-            <button onclick="openCabinet('Lite')" class="btn btn-outline">Настроить</button>
+            <button onclick="openCabinet('Lite')" class="btn btn-outline">Попробовать бесплатно</button>
         </div>
-
-        <div class="price-card featured">
+ <div class="price-card featured">
+            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">ХИТ ПРОДАЖ</div>
             <h3>Business</h3>
+            <p style="font-size: 13px; color: var(--primary); margin-bottom: 10px;">Для масштабирования бизнеса</p>
             <div class="price-val">7 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
             <ul class="features">
-                <li>✓ Безлимит ответов</li>
-                <li>✓ ИИ-допродажи + Модерация</li>
+                <li>✓ <b>Безлимитные ответы</b></li>
+                <li>✓ <b>Ручное подтверждение в Telegram</b></li>
+                <li>✓ ИИ-допродажи (рост выручки до 15%)</li>
+                <li>✓ Детектор мата и спама (защита рейтинга)</li>
+                <li>✓ Аналитика настроения покупателей</li>
             </ul>
             <button onclick="openCabinet('Business')" class="btn btn-primary">Выбрать Business</button>
         </div>
 
         <div class="price-card">
             <h3>Pro Max</h3>
+            <p style="font-size: 13px; color: var(--primary); margin-bottom: 10px;">Для агентств и ТОП-брендов</p>
             <div class="price-val">19 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
             <ul class="features">
-                <li>✓ Multi-кабинеты (10+)</li>
-                <li>✓ Личный менеджер</li>
+                <li>✓ Управление 10+ кабинетами</li>
+                <li>✓ Персональное обучение ИИ под ваш склад</li>
+                <li>✓ Индивидуальные сценарии (воронки)</li>
+                <li>✓ Приоритетная поддержка 24/7</li>
+                <li>✓ Личный менеджер на связи</li>
             </ul>
-            <button onclick="openCabinet('Pro')" class="btn btn-outline">Связаться</button>
+            <button onclick="openCabinet('Pro Max')" class="btn btn-outline">Связаться с нами</button>
         </div>
     </div>
- <footer>
-        <p>&copy; 2026 Nero AI. Решение для ИП и самозанятых.</p>
+
+    <footer>
+        <p>&copy; 2026 Nero AI. Решение для профессиональных селлеров (ИП и самозанятых).</p>
         <p style="margin-top: 10px;">Возникли вопросы? <a href="https://t.me/neroai_support" target="_blank">Напишите нам @neroai_support</a></p>
     </footer>
 </div>
@@ -176,12 +197,12 @@
     <div class="cabinet-card">
         <span class="close-btn" onclick="closeCabinet()">&times;</span>
         <h2 id="modalTitle">Настройка Nero AI</h2>
-        <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения</p>
+        <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения автопилота</p>
         
         <form id="mainForm">
             <div class="form-group">
                 <label>Ваш Telegram ID</label>
-                <input type="text" id="tg_id" placeholder="Узнать можно в @userinfobot" required>
+                <input type="text" id="tg_id" placeholder="Напр: 5197246400" required>
             </div>
             <div class="form-group">
                 <label>Площадка</label>
@@ -192,16 +213,17 @@
             </div>
             <div class="form-group">
                 <label>API-токен (Ключ для отзывов)</label>
-                <input type="password" id="token" placeholder="Вставьте ваш API ключ" required>
+                <input type="password" id="token" placeholder="Вставьте ваш секретный ключ" required>
             </div>
             <div class="form-group">
                 <label>Тональность ответов</label>
                 <select id="tone">
                     <option value="friendly">Дружелюбная 😊</option>
                     <option value="strict">Деловая 💼</option>
+                    <option value="creative">Креативная ✨</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" id="saveBtn">Активировать</button>
+            <button type="submit" class="btn btn-primary" id="saveBtn">Активировать автопилот</button>
         </form>
     </div>
 </div>
@@ -216,8 +238,7 @@
     }
 
     function closeCabinet() { document.getElementById('cabinetModal').style.display = 'none'; }
-
-    document.getElementById('mainForm').addEventListener('submit', async (e) => {
+: document.getElementById('mainForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
         btn.innerText = 'Подключение...';
@@ -225,17 +246,17 @@
 
         const data = {
             tg_id: document.getElementById('tg_id').value,
-            token: document.getElementById('token').value, // Это ключ от кабинета
+            token: document.getElementById('token').value,
             mp: document.getElementById('platform').value,
             tone: document.getElementById('tone').value,
             plan: selectedPlan,
             date: new Date().toLocaleString("ru-RU"),
-            text_review: "" // Поле для будущего отзыва (заполняется в Make)
+            text_review: "" // Оставляем поле пустым для работы в сценарии
         };
 
         try {
-            // Замени на свой Webhook из Make.com
-            const URL = 'https://hook.eu1.make.com/твой_код';
+            // Вставлен твой рабочий URL вебхука
+            const URL = 'https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t';
             const res = await fetch(URL, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -243,15 +264,15 @@
             });
 
             if (res.ok) {
-                alert('✅ Успешно! Nero AI свяжется с вами в Telegram и начнет работу в течение 15 минут.');
+                alert('✅ Успешно! Nero AI подключен. Теперь каждый ответ ИИ будет приходить вам в Telegram на согласование.');
                 closeCabinet();
             } else {
-                alert('Ошибка сервера. Проверьте правильность токена.');
+                alert('Ошибка сервера Make.com. Пожалуйста, напишите в поддержку.');
             }
         } catch (err) {
             alert('Сбой сети. Попробуйте еще раз с включенным VPN/Proxy, если вы в РФ.');
         } finally {
-            btn.innerText = 'Активировать';
+            btn.innerText = 'Активировать автопилот';
             btn.disabled = false;
         }
     });
