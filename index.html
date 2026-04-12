@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nero AI — Ваш личный отдел репутации на автопилоте</title>
+    <title>Nero AI — Ваш личный отдел репутации на маркетплейсах</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     
@@ -16,6 +16,7 @@
             --text-dim: #94a3b8;
             --border: #1e293b;
             --success: #10b981;
+            --accent: #f43f5e;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,22 +38,25 @@
         }
         .support-link:hover { border-color: var(--primary); color: #fff; }
 
-        .hero { padding: 60px 0 40px; text-align: center; }
+        .hero { padding: 80px 0 40px; text-align: center; }
         .badge { background: rgba(129, 140, 248, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 20px; display: inline-block; }
-        h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px; line-height: 1.1; }
-        .hero p { color: var(--text-dim); font-size: 18px; max-width: 750px; margin: 0 auto 30px; }
+        h1 { font-size: clamp(32px, 5vw, 64px); font-weight: 800; margin-bottom: 24px; letter-spacing: -2px; line-height: 1.05; }
+        h1 span { color: var(--primary); }
+        .hero p { color: var(--text-dim); font-size: 19px; max-width: 800px; margin: 0 auto 40px; }
 
-        .hero-triggers { display: flex; gap: 20px; justify-content: center; margin-top: 20px; font-size: 14px; color: var(--success); font-weight: 600; }
+        .hero-triggers { display: flex; gap: 30px; justify-content: center; margin-top: 20px; font-size: 14px; color: var(--success); font-weight: 600; }
+        .hero-triggers span { display: flex; align-items: center; gap: 6px; }
 
+        /* SECURITY BOX */
         .security-box {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 7, 10, 0) 100%);
             border: 1px solid rgba(16, 185, 129, 0.2);
             border-radius: 24px;
-            padding: 24px;
-            margin: 40px 0 60px;
+            padding: 30px;
+            margin: 40px 0 80px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
             align-items: center;
             text-align: center;
         }
@@ -61,56 +65,77 @@
             .security-box { flex-direction: row; text-align: left; padding: 40px; justify-content: space-between; }
         }
 
-        .security-text h2 { color: var(--success); font-size: 22px; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; justify-content: center; }
+        .security-text h2 { color: var(--success); font-size: 24px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; justify-content: center; }
         @media (min-width: 768px) { .security-text h2 { justify-content: flex-start; } }
         
         .token-info {
             background: #000;
             border: 1px dashed var(--success);
-            padding: 16px;
+            padding: 20px;
             border-radius: 16px;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             color: var(--success);
             font-size: 13px;
             width: 100%;
-            max-width: 340px;
-            word-wrap: break-word;
+            max-width: 360px;
+            text-align: left;
         }
+
+        /* PRICING */
+        .pricing-title { text-align: center; margin-bottom: 40px; font-size: 32px; font-weight: 800; }
+.pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 100px; }
+        .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 40px; border-radius: 32px; transition: 0.4s ease; position: relative; display: flex; flex-direction: column; }
+        .price-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .price-card.featured { border-color: var(--primary); box-shadow: 0 20px 40px rgba(129, 140, 248, 0.15); background: linear-gradient(180deg, #0f1218 0%, #161b26 100%); }
+        
+        .price-val { font-size: 48px; font-weight: 800; margin: 20px 0; letter-spacing: -1px; }
+        .price-val span { font-size: 16px; font-weight: 400; color: var(--text-dim); }
+        
+        .features { list-style: none; margin-bottom: 35px; font-size: 15px; flex-grow: 1; }
+        .features li { margin-bottom: 14px; display: flex; align-items: center; gap: 10px; color: #cbd5e1; }
+        .features li b { color: #fff; }
+        .check-icon { color: var(--success); font-weight: bold; }
+
+        /* BUTTONS */
+        .btn { display: block; width: 100%; padding: 18px; border-radius: 16px; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; border: none; transition: 0.3s; font-size: 16px; }
+        .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 10px 20px rgba(129, 140, 248, 0.3); }
+        .btn-outline { border: 1px solid var(--border); color: #fff; background: transparent; }
+        .btn:hover { transform: scale(1.02); opacity: 0.9; }
 
         /* MODAL */
         #cabinetModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 2000;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); z-index: 2000;
             justify-content: center; align-items: center; padding: 20px;
         }
         .cabinet-card {
-background: var(--card-bg); border: 1px solid var(--primary);
-            padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; position: relative;
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 40px; border-radius: 32px; width: 100%; max-width: 480px; position: relative;
         }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: var(--text-dim); }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 32px; cursor: pointer; color: var(--text-dim); }
 
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--text-dim); }
         input, select {
-            width: 100%; padding: 12px; background: #000; border: 1px solid var(--border);
-            border-radius: 10px; color: #fff; font-size: 15px;
+            width: 100%; padding: 14px; background: #000; border: 1px solid var(--border);
+            border-radius: 12px; color: #fff; font-size: 16px; transition: 0.3s;
         }
+        input:focus { border-color: var(--primary); outline: none; }
 
-        /* PRICING */
-        .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
-        .price-card { background: var(--card-bg); border: 1px solid var(--border); padding: 35px; border-radius: 28px; transition: 0.3s; position: relative;}
-        .price-card.featured { border-color: var(--primary); box-shadow: 0 0 30px rgba(129, 140, 248, 0.1); }
-        .price-val { font-size: 42px; font-weight: 800; margin: 15px 0; }
-        .features { list-style: none; margin-bottom: 30px; font-size: 15px; color: var(--text-dim); }
-        .features li { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        /* FOOTER */
+        footer { padding: 80px 0 40px; border-top: 1px solid var(--border); background: #080a0f; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; }
+        .footer-col h4 { font-size: 15px; margin-bottom: 25px; color: #fff; text-transform: uppercase; letter-spacing: 1.5px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--text-dim); text-decoration: none; font-size: 15px; transition: 0.3s; }
+        .footer-col ul li a:hover { color: var(--primary); padding-left: 5px; }
+        
+        .legal-info { border-top: 1px solid var(--border); padding-top: 40px; text-align: center; color: var(--text-dim); font-size: 13px; line-height: 1.8; }
 
-        .btn { display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; border: none; transition: 0.2s; }
-        .btn-primary { background: var(--primary); color: #fff; }
-        .btn-outline { border: 1px solid var(--border); color: #fff; background: transparent; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        footer { padding: 40px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 14px; }
-        footer a { color: var(--primary); text-decoration: none; }
+        /* PLATFORMS TAGS */
+        .platforms-line { display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; opacity: 0.6; filter: grayscale(1); }
+        .plt-tag { border: 1px solid var(--border); padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -120,110 +145,148 @@ background: var(--card-bg); border: 1px solid var(--primary);
         <a href="#" class="logo">NERO<span>AI</span></a>
         <a href="https://t.me/neroai_support" target="_blank" class="support-link">Поддержка 24/7</a>
     </header>
-
-    <section class="hero">
+ <section class="hero">
         <div class="badge">Решение №1 для селлеров в 2026 году</div>
-        <h1>Перестаньте тратить <br> 10 часов в неделю на отзывы</h1>
-        <p>Nero AI — это ваш личный отдел репутации в Telegram. ИИ пишет идеальные ответы, защищает от негатива и допродает товары, пока вы занимаетесь масштабированием бизнеса.</p>
+        <h1>Поднимите рейтинг товара до 5.0 <span>на автопилоте</span></h1>
+        <p>Nero AI — ваш личный отдел репутации. Наша нейросеть пишет «человечные» ответы, мгновенно отрабатывает негатив и делает допродажи, пока вы спите.</p>
         
+        <div class="platforms-line">
+            <span class="plt-tag">WILDBERRIES</span>
+            <span class="plt-tag">OZON</span>
+            <span class="plt-tag">YANDEX MARKET</span>
+        </div>
+
         <div class="hero-triggers">
-            <span>● Ответ за 60 сек</span>
-            <span>● Рост рейтинга ⭐</span>
-            <span>● 0% риска блокировки</span>
+            <span><i class="check-icon">✓</i> Ответ за 60 сек</span>
+            <span><i class="check-icon">✓</i> Рост выручки до 15%</span>
+            <span><i class="check-icon">✓</i> Безопасно по API</span>
         </div>
     </section>
 
     <section class="security-box">
         <div class="security-text">
-            <h2>🛡 Безопасность API</h2>
-            <p style="color: #cbd5e1; font-size: 15px; max-width: 450px;">Официальный метод подключения. Nero AI видит только отзывы. Ваши финансы и данные кабинета защищены AES-256 шифрованием.</p>
+            <h2>🛡 Защита вашего кабинета</h2>
+            <p style="color: #cbd5e1; font-size: 16px; max-width: 500px;">
+                Мы используем <b>официальный метод подключения</b> (API Token). Nero AI видит только отзывы и вопросы. Мы не имеем доступа к вашим финансам, заказам или личным данным.
+            </p>
         </div>
         <div class="token-info">
-            ACCESS_LEVEL: feedback_only<br>
-            ENCRYPTION: AES-256
+            &gt; ENCRYPTION: AES-256-GCM<br>
+            &gt; ACCESS_SCOPE: feedback_read_write<br>
+            &gt; STATUS: secure_connection_ready
         </div>
     </section>
 
+    <h2 class="pricing-title">Выберите ваш план роста</h2>
     <div class="pricing">
         <div class="price-card">
             <h3>Lite</h3>
-            <p style="font-size: 13px; color: var(--primary); margin-bottom: 10px;">Для начинающих селлеров</p>
-            <div class="price-val">2 990 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
+            <p style="font-size: 13px; color: var(--primary); margin: 10px 0;">Для старта на маркетплейсах</p>
+            <div class="price-val">990 ₽ <span>/мес</span></div>
             <ul class="features">
-                <li>✓ 200 идеальных ответов</li>
-                <li>✓ Тон под ваш бренд (Tone of Voice)</li>
-                <li>✓ Ответ за 60 секунд ⚡</li>
-                <li>✓ Экономия 10 часов в неделю</li>
+                <li><span class="check-icon">✓</span> <b>50</b> уникальных ответов</li>
+                <li><span class="check-icon">✓</span> Обучение под ваш Tone of Voice</li>
+                <li><span class="check-icon">✓</span> Ответ за 60 секунд ⚡</li>
+                <li><span class="check-icon">✓</span> Базовая отработка негатива</li>
             </ul>
-            <button onclick="openCabinet('Lite')" class="btn btn-outline">Попробовать бесплатно</button>
+            <button onclick="openCabinet('Lite')" class="btn btn-outline">Попробовать за 990 ₽</button>
         </div>
- <div class="price-card featured">
-            <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">ХИТ ПРОДАЖ</div>
+
+        <div class="price-card featured">
+            <div style="position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; letter-spacing: 1px;">ХИТ ПРОДАЖ</div>
             <h3>Business</h3>
-            <p style="font-size: 13px; color: var(--primary); margin-bottom: 10px;">Для масштабирования бизнеса</p>
-            <div class="price-val">7 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
+            <p style="font-size: 13px; color: var(--primary); margin: 10px 0;">Для активных селлеров</p>
+            <div class="price-val">2 990 ₽ <span>/мес</span></div>
             <ul class="features">
-                <li>✓ <b>Безлимитные ответы</b></li>
-                <li>✓ <b>Ручное подтверждение в Telegram</b></li>
-                <li>✓ ИИ-допродажи (рост выручки до 15%)</li>
-                <li>✓ Детектор мата и спама (защита рейтинга)</li>
-                <li>✓ Аналитика настроения покупателей</li>
+                <li><span class="check-icon">✓</span> <b>300</b> ответов в месяц</li>
+                <li><span class="check-icon">✓</span> <b>Smart Up-sell</b> (допродажи в ответах)</li>
+                <li><span class="check-icon">✓</span> Режим модерации в Telegram</li>
+                <li><span class="check-icon">✓</span> Детектор мата и спам-фильтр</li>
             </ul>
-            <button onclick="openCabinet('Business')" class="btn btn-primary">Выбрать Business</button>
+            <button onclick="openCabinet('Business')" class="btn btn-primary">Активировать Business</button>
         </div>
 
         <div class="price-card">
-            <h3>Pro Max</h3>
-            <p style="font-size: 13px; color: var(--primary); margin-bottom: 10px;">Для агентств и ТОП-брендов</p>
-            <div class="price-val">19 900 ₽ <span style="font-size: 16px; font-weight: 400;">/мес</span></div>
+            <h3>Unlimited</h3>
+            <p style="font-size: 13px; color: var(--primary); margin: 10px 0;">Для крупных брендов</p>
+            <div class="price-val">5 990 ₽ <span>/мес</span></div>
             <ul class="features">
-                <li>✓ Управление 10+ кабинетами</li>
-                <li>✓ Персональное обучение ИИ под ваш склад</li>
-                <li>✓ Индивидуальные сценарии (воронки)</li>
-                <li>✓ Приоритетная поддержка 24/7</li>
-                <li>✓ Личный менеджер на связи</li>
+                <li><span class="check-icon">✓</span> <b>Безлимитные</b> ответы</li>
+                <li><span class="check-icon">✓</span> Глубокое обучение под артикулы</li>
+                <li><span class="check-icon">✓</span> Аналитика лояльности (Sentiment)</li>
+                <li><span class="check-icon">✓</span> Приоритет в очереди OpenAI</li>
             </ul>
-            <button onclick="openCabinet('Pro Max')" class="btn btn-outline">Связаться с нами</button>
+            <button onclick="openCabinet('Unlimited')" class="btn btn-outline">Выбрать Unlimited</button>
         </div>
     </div>
-
-    <footer>
-        <p>&copy; 2026 Nero AI. Решение для профессиональных селлеров (ИП и самозанятых).</p>
-        <p style="margin-top: 10px;">Возникли вопросы? <a href="https://t.me/neroai_support" target="_blank">Напишите нам @neroai_support</a></p>
+ <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo">NERO<span>AI</span></a>
+                    <p style="margin-top:20px; font-size: 14px; color: var(--text-dim); line-height: 1.8;">
+                        Nero AI помогает селлерам масштабироваться, забирая на себя самую скучную и важную часть работы — общение с клиентами.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Клиентам</h4>
+                    <ul>
+                        <li><a href="#">База знаний</a></li>
+                        <li><a href="#">Как получить API-ключ</a></li>
+                        <li><a href="https://t.me/neroai_support">Техподдержка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Юридическая информация</h4>
+                    <ul>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Публичная оферта</a></li>
+                        <li><a href="#">Безопасность данных</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="legal-info">
+                <p>Платежи защищены сертификатом SSL. Обработка данных происходит в соответствии с ФЗ-152.</p>
+                <p style="margin-top: 15px;">ИНДИВИДУАЛЬНЫЙ ПРЕДПРИНИМАТЕЛЬ [ВАШЕ ФИО], ИНН: [ВАШ ИНН], ОГРНИП: [ВАШ ОГРНИП]</p>
+                <p>&copy; 2026 Nero AI. Все права защищены.</p>
+            </div>
+        </div>
     </footer>
 </div>
 
 <div id="cabinetModal">
     <div class="cabinet-card">
         <span class="close-btn" onclick="closeCabinet()">&times;</span>
-        <h2 id="modalTitle">Настройка Nero AI</h2>
-        <p style="color: var(--text-dim); font-size: 13px; margin-bottom: 20px;">Введите данные для подключения автопилота</p>
+        <h2 id="modalTitle" style="margin-bottom: 10px;">Настройка Nero AI</h2>
+        <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 25px;">Подключите магазин за 2 минуты</p>
         
         <form id="mainForm">
             <div class="form-group">
                 <label>Ваш Telegram ID</label>
                 <input type="text" id="tg_id" placeholder="Напр: 5197246400" required>
+                <small style="color: var(--text-dim); font-size: 11px; margin-top: 5px; display: block;">Узнать ID можно в @userinfobot</small>
             </div>
             <div class="form-group">
-                <label>Площадка</label>
+                <label>Маркетплейс</label>
                 <select id="platform">
                     <option value="wb">Wildberries</option>
                     <option value="ozon">Ozon</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>API-токен (Ключ для отзывов)</label>
-                <input type="password" id="token" placeholder="Вставьте ваш секретный ключ" required>
+                <label>API-токен (с доступом к Отзывам)</label>
+                <input type="password" id="token" placeholder="Вставьте ваш токен" required>
             </div>
             <div class="form-group">
-                <label>Тональность ответов</label>
+                <label>Желаемый стиль общения</label>
                 <select id="tone">
-                    <option value="friendly">Дружелюбная 😊</option>
-                    <option value="strict">Деловая 💼</option>
-                    <option value="creative">Креативная ✨</option>
+                    <option value="friendly">Дружелюбный (с эмодзи) 😊</option>
+                    <option value="strict">Деловой (без лишних слов) 💼</option>
+                    <option value="creative">Креативный ✨</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" id="saveBtn">Активировать автопилот</button>
+            <button type="submit" class="btn btn-primary" id="saveBtn">Запустить автопилот</button>
         </form>
     </div>
 </div>
@@ -240,18 +303,15 @@ background: var(--card-bg); border: 1px solid var(--primary);
     function closeCabinet() {
         document.getElementById('cabinetModal').style.display = 'none';
     }
- // Закрытие по клику вне модального окна
+
     window.onclick = function(event) {
         const modal = document.getElementById('cabinetModal');
-        if (event.target == modal) {
-            closeCabinet();
-        }
+        if (event.target == modal) closeCabinet();
     }
-
-    document.getElementById('mainForm').addEventListener('submit', async (e) => {
+ document.getElementById('mainForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('saveBtn');
-        btn.innerText = 'Подключение...';
+        btn.innerText = 'Связь с сервером...';
         btn.disabled = true;
 
         const data = {
@@ -260,11 +320,11 @@ background: var(--card-bg); border: 1px solid var(--primary);
             mp: document.getElementById('platform').value,
             tone: document.getElementById('tone').value,
             plan: currentPlan,
-            date: new Date().toLocaleString("ru-RU"),
-            text_review: "" 
+            timestamp: new Date().toISOString()
         };
 
         try {
+            // Твой хук в Make
             const URL = 'https://hook.eu1.make.com/1ofv89au8k2e016m86d2ar7w97lgez2t';
             const res = await fetch(URL, {
                 method: 'POST',
@@ -273,15 +333,15 @@ background: var(--card-bg); border: 1px solid var(--primary);
             });
 
             if (res.ok) {
-                alert('✅ Успешно! Nero AI подключен. Теперь каждый ответ ИИ будет приходить вам в Telegram на согласование.');
+                alert('✅ Данные успешно отправлены! Nero AI свяжется с вами в Telegram в течение пары минут для подтверждения.');
                 closeCabinet();
             } else {
-                alert('Ошибка сервера. Проверьте сценарий в Make.');
+                alert('Упс! Ошибка на стороне сервера. Пожалуйста, напишите в поддержку.');
             }
         } catch (err) {
-            alert('Сбой сети. Попробуйте еще раз (возможно, нужен VPN для Make.com).');
+            alert('Сбой сети. Проверьте интернет-соединение.');
         } finally {
-            btn.innerText = 'Активировать автопилот';
+            btn.innerText = 'Запустить автопилот';
             btn.disabled = false;
         }
     });
